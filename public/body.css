@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+* {
+    font-family: Montserrat;
+    font-weight: 400;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.montserrat-bold {
+    font-weight: 600;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    color: tomato;
+    text-transform: uppercase;
+}
+
+#header {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    flex: 1 0 auto;
+}
+
+#order {
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header button {
+    background-color: transparent;
+    border: none;
+}
+
+#header button i.fa-sort-alpha-down, #header i.fa-sort-numeric-down{
+    border-radius: .5rem;
+    background-color: tomato;
+    padding: .5rem;
+    font-size: 1.3rem;
+    color: snow;
+}
+
+#theme {
+    width: 45%;
+}
+
+#theme select  {
+    width: 20%;
+    border-radius: .3rem;
+    border: #ccc solid .15rem;
+    padding: .3rem;
+    margin-left: .5rem;
+
+}
+
+#search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: .5rem;
+    width: 45%;
+}
+
+#search input { 
+    border-radius: .3rem;
+    border: #ccc solid .15rem;
+    padding: .3rem;
+    margin-left: .5rem;
+}
+
+.avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    padding: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    margin: .8rem 0;
+}
+
+#signos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    text-align: center;
+    
+}
+
+#signos article.signo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    width: 80vw;
+    padding: 1rem;
+    border: .2rem solid #ccc;
+    margin: .5rem 0;
+    border-radius: .5rem;
+    position: relative;
+}
+
+#destacado article.signo{
+    border: .3rem solid tomato;
+}
+
+.birthdayText {
+    position: absolute;
+    right: 2vw;
+    top: auto;
+    bottom: auto;
+    font-size: 6rem;
+    color: tomato;
+    font-weight: 600;
+    transform: rotate(0);
+}
+
+@media screen and (min-width: 768px){
+    #header {
+        width: 90vw;
+        justify-content: space-between;
+    }
+
+    #search {
+        margin-top: 0;
+    }
+
+    #signos article.signo {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #main {
+        width: 100%;
+    }
+
+    #signos article.signo {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        height: 45vh;
+    }
+
+    #signos article.signo .avatar {
+        grid-area: 1/1/3/2;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto
+    }
+
+    #signos article.signo h2 {
+        font-size: 2rem;
+        text-align: left;
+    }
+
+    #signos article.signo p {
+        text-align: left;
+        line-height: 1.8rem;
+        grid-area: 2/2/3/3;
+        height: 100%;
+    }
+
+    .grid {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        width: 80vw;
+    }
+
+    .grid article.signo {
+        min-height: 60vh;
+        max-width: 48%;
+    }
+
+    .grid article.signo figure {
+        grid-area: 2/1/3/2;
+        display: flex;
+        justify-content: center;
+    }
+
+    .grid article.signo figure img {
+        min-width: 70%;
+    }
+
+    .grid article.signo h2 {
+        text-align: center;
+    }
+
+    .grid article.signo p {
+        grid-area: 1/2/3/3;
+        min-height: auto;
+        font-size: .8rem;
+        line-height: 1.5rem;
+    }
+}
