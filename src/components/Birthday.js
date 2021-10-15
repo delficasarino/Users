@@ -1,25 +1,15 @@
 import {useContext} from 'react';
-import moment from 'moment';
 import User from './User';
-import ApiContext from '../context/ApiContext'
 import SearchContext from '../context/SearchContext'
+import ActualContext from '../context/ActualContext'
 
 const Birthday = () => {
-    const {users} = useContext(ApiContext);
     const {searchUser} = useContext(SearchContext);
-
-    let busqueda = searchUser;
-
-    let actual = users.find(user => {
-        let init = moment(user.birthday, "YYYYMMDD");
-        let now = moment();
-        let valid = now.isAfter(init);
-        return valid
-    });
+    const {setActual} = useContext(ActualContext);
 
     return (
         <section id="destacado">
-            {busqueda ? <User name={busqueda.name} image={busqueda.avatar} birthday={busqueda.birthday}/> : actual ? <User name={actual.name} image={actual.avatar} birthday={actual.birthday} destacado={true} /> : null  }
+            {searchUser ? <User name={searchUser.name} image={searchUser.avatar} birthday={searchUser.birthday}/> : setActual ? <User name={setActual.name} image={setActual.avatar} birthday={setActual.birthday} destacado={true} /> : null  }
         </section>
     )
 }
