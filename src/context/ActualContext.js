@@ -1,25 +1,21 @@
-import { createContext,useState,useContext,useEffect } from "react"
-import ApiContext from '../context/ApiContext';
+import { createContext,useState } from "react"
 import moment from 'moment';
 
-const ActualContext = createContext();
+const ActualContext = createContext(null);
 
 const ActualProvider =  ({children}) => { 
-    const {users} = useContext(ApiContext);
-
-    const [actual, setActual] = useState()
-        
-    useEffect(() => {
-        let actualUser =  users.find(user => {
-            let init = moment(user.birthday, "YYYYMMDD");
-            let now = moment();
-            let valid = now.isAfter(init);
-            return valid
-        })
-        setActual (actualUser)
-    }, [])
-
-    const data = {actual,setActual}
+    const [actual, setActual] = useState(null)
+    const getUserBirthday = async () => {
+        try {
+            const endpoint = process.env.REACT_APP_SERVER_URL;
+            const request = await fetch(endpoint);
+            const datas = await request.json();
+            setActual((actual)=> [...datas].find(user => moment(user.birthday).month() >= moment().month() && moment(user.birthday).dayOfYear() >= moment().dayOfYear()   ))
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    const data = {actual,getUserBirthday}
     return <ActualContext.Provider value={data}>{children}</ActualContext.Provider>
 }
 

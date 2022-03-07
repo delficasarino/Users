@@ -1,23 +1,25 @@
-import { createContext,useState,useContext } from "react"
-import ApiContext from '../context/ApiContext';
+import { createContext,useState } from "react"
 
-const SearchContext = createContext();
+const SearchContext = createContext(null);
 
 const SearchProvider =  ({children}) => { 
-    const {users} = useContext(ApiContext);
     const [searchUser, setSearchUser] = useState();
-    const searchByName = (value) => {        
-        if(value){
-            setSearchUser((searchUser) => users.find(s => String(s.name).toLowerCase().includes(value)))
-        } else{
-            setSearchUser((searchUser) => null)
-        } 
-    }   
+
+    const searchByName = async (value) => {
+        try {
+            const endpoint = process.env.REACT_APP_SERVER_URL;
+            const request = await fetch(endpoint);
+            const datas = await request.json();
+            setSearchUser(datas.find(s => 
+                    String(s.name).toLowerCase().includes(value)))
+             
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const data = {setSearchUser,searchByName,searchUser}
-    return (
-        <SearchContext.Provider value={data}>{children}</SearchContext.Provider>
-    )
+    return <SearchContext.Provider value={data}>{children}</SearchContext.Provider>
 }
 
 export {SearchProvider}

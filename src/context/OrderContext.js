@@ -1,19 +1,20 @@
-import { createContext,useContext } from "react"
+import { createContext,useContext,useEffect,useState} from "react"
 import ApiContext from '../context/ApiContext';
 import moment from "moment";
 
 const OrderContext = createContext();
 
 const OrderProvider =  ({children}) => { 
-    const {setUsers} = useContext(ApiContext);
+    const [order, setOrder] = useState(null)
+    const changeOrder = (type) => setOrder(type)  
 
-    const orderUserByName = () =>  setUsers((users)=> [...users].sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)))  
-    const orderUserByDate = () => setUsers((users)=> [...users].sort((a, b) => moment(a.birthday).format("YYYYMMDD") - moment(b.birthday).format("YYYYMMDD")))
+    const orderUserByName = data => [...data].sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)) 
+    const orderUserByDate = data =>  [...data].sort((a, b) => moment(a.birthday).format("YYYYMMDD") - moment(b.birthday).format("YYYYMMDD"))
+    const orderUserByNameAlt = data => [...data].sort((a, b) => (a.name > b.name ? -1 : a.name < b.name ? 1 : 0)) 
+    const orderUserByDateAlt = data =>  [...data].sort((a, b) => moment(b.birthday).format("YYYYMMDD") - moment(a.birthday).format("YYYYMMDD"))
 
-    const data = {orderUserByDate,orderUserByName}
-    return (
-        <OrderContext.Provider value={data}>{children}</OrderContext.Provider>
-    )
+    const data = {order,changeOrder,orderUserByName,orderUserByDate,orderUserByNameAlt,orderUserByDateAlt}
+    return <OrderContext.Provider value={data}>{children}</OrderContext.Provider>
 }
 
 export {OrderProvider}
